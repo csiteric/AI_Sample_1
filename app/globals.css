@@ -1,0 +1,100 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /* Brand colors */
+  --color-jungle:        #2D4A2D;
+  --color-fern:          #3D6B3A;
+  --color-moss:          #5A8A50;
+  --color-sage:          #8DB87A;
+  --color-mint-mist:     #D4E8CB;
+  --color-raw-wood:      #A8845A;
+  --color-honey-wood:    #C9A87A;
+  --color-travertine:    #E8D9C0;
+  --color-cream-wall:    #F5EFE3;
+  --color-linen:         #FAF6EF;
+  --color-concrete:      #E8E4DC;
+  --color-bulb-glow:     #D4A84B;
+  --color-espresso:      #2A1F14;
+
+  /* Override shadcn semantic tokens */
+  --color-background:    var(--color-linen);
+  --color-foreground:    var(--color-espresso);
+  --color-primary:       var(--color-fern);
+  --color-primary-foreground: #ffffff;
+  --color-secondary:     var(--color-mint-mist);
+  --color-secondary-foreground: var(--color-jungle);
+  --color-muted:         var(--color-cream-wall);
+  --color-muted-foreground: var(--color-moss);
+  --color-border:        var(--color-travertine);
+  --color-ring:          var(--color-fern);
+  --color-card:          #ffffff;
+  --color-card-foreground: var(--color-espresso);
+
+  /* Brand fonts */
+  --font-display:  var(--font-cormorant), Georgia, serif;
+  --font-body:     var(--font-crimson), Georgia, serif;
+  --font-ui:       var(--font-dm-sans), system-ui, sans-serif;
+  --font-sans:     var(--font-dm-sans), system-ui, sans-serif;
+  --font-mono:     ui-monospace, monospace;
+  --font-heading:  var(--font-cormorant), Georgia, serif;
+
+  /* Radius */
+  --radius-sm:  4px;
+  --radius-md:  10px;
+  --radius-lg:  18px;
+  --radius:     10px;
+  --radius-xl:  18px;
+  --radius-2xl: 24px;
+  --radius-3xl: 32px;
+  --radius-4xl: 40px;
+}
+
+:root {
+  --background: var(--color-linen);
+  --foreground: var(--color-espresso);
+  --card: #ffffff;
+  --card-foreground: var(--color-espresso);
+  --popover: #ffffff;
+  --popover-foreground: var(--color-espresso);
+  --primary: var(--color-fern);
+  --primary-foreground: #ffffff;
+  --secondary: var(--color-mint-mist);
+  --secondary-foreground: var(--color-jungle);
+  --muted: var(--color-cream-wall);
+  --muted-foreground: var(--color-moss);
+  --accent: var(--color-mint-mist);
+  --accent-foreground: var(--color-jungle);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: var(--color-travertine);
+  --input: var(--color-travertine);
+  --ring: var(--color-fern);
+  --sidebar: var(--color-cream-wall);
+  --sidebar-foreground: var(--color-espresso);
+  --sidebar-primary: var(--color-fern);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--color-mint-mist);
+  --sidebar-accent-foreground: var(--color-jungle);
+  --sidebar-border: var(--color-travertine);
+  --sidebar-ring: var(--color-fern);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+    line-height: 1.65;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+  }
+}
