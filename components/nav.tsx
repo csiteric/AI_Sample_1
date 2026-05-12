@@ -14,32 +14,17 @@ export function Nav() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-[#F5EFE3]/95 backdrop-blur-sm border-b border-[#E8D9C0] shadow-[0_2px_10px_rgba(42,31,20,0.08)]">
+    <header className="sticky top-0 z-50 bg-[#FDFAF5]/95 backdrop-blur-sm border-b border-[#E0CEBC] shadow-[0_2px_10px_rgba(42,26,14,0.07)]">
       <div className="max-w-6xl mx-auto px-6 py-3 flex items-center gap-8">
         {/* Logo */}
         <a href="#" className="flex-shrink-0">
           <span
-            className="text-xl leading-none"
-            style={{ fontFamily: "var(--font-display)", color: "#2D4A2D" }}
+            className="text-[18px] font-bold leading-none tracking-[-0.02em]"
+            style={{ fontFamily: "var(--font-display)", color: "#2A1A0E" }}
           >
-            <em
-              style={{
-                fontStyle: "italic",
-                fontWeight: 600,
-                color: "#2D4A2D",
-              }}
-            >
-              Urban Roots
-            </em>{" "}
-            <span
-              style={{
-                fontWeight: 300,
-                fontStyle: "normal",
-                color: "#A8845A",
-              }}
-            >
-              Coffee
-            </span>
+            Chord{" "}
+            <span style={{ color: "#B86D28" }}>&amp;</span>{" "}
+            Cup
           </span>
         </a>
 
@@ -49,7 +34,7 @@ export function Nav() {
             <a
               key={l.href}
               href={l.href}
-              className="text-[11px] font-medium tracking-[0.1em] uppercase text-[#3D6B3A] hover:text-[#2D4A2D] transition-colors"
+              className="text-[10px] font-medium tracking-[0.12em] uppercase text-[#6B5440] hover:text-[#B86D28] transition-colors"
               style={{ fontFamily: "var(--font-ui)" }}
             >
               {l.label}
@@ -60,7 +45,7 @@ export function Nav() {
         {/* CTA */}
         <a
           href="#schedule"
-          className="hidden md:inline-flex ml-auto items-center px-4 py-2 rounded-full bg-[#3D6B3A] text-white text-[10px] font-medium tracking-[0.1em] uppercase hover:bg-[#2D4A2D] transition-colors shadow-[0_4px_20px_rgba(45,74,45,0.15)]"
+          className="hidden md:inline-flex ml-auto items-center px-5 py-2 rounded-full bg-[#3A2618] text-[#FAF5EC] text-[10px] font-medium tracking-[0.1em] uppercase hover:bg-[#4A3020] transition-colors shadow-[0_2px_10px_rgba(58,38,24,0.18)]"
           style={{ fontFamily: "var(--font-ui)" }}
         >
           Find Our Truck
@@ -68,7 +53,7 @@ export function Nav() {
 
         {/* Mobile toggle */}
         <button
-          className="md:hidden ml-auto p-1 text-[#2D4A2D]"
+          className="md:hidden ml-auto p-1 text-[#3A2618]"
           onClick={() => setOpen((v) => !v)}
           aria-label="Toggle menu"
         >
@@ -78,13 +63,13 @@ export function Nav() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden border-t border-[#E8D9C0] bg-[#F5EFE3] px-6 py-4 flex flex-col gap-4">
+        <div className="md:hidden border-t border-[#E0CEBC] bg-[#FDFAF5] px-6 py-4 flex flex-col gap-4">
           {links.map((l) => (
             <a
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="text-[12px] font-medium tracking-[0.1em] uppercase text-[#3D6B3A]"
+              className="text-[11px] font-medium tracking-[0.12em] uppercase text-[#6B5440]"
               style={{ fontFamily: "var(--font-ui)" }}
             >
               {l.label}
@@ -93,7 +78,7 @@ export function Nav() {
           <a
             href="#schedule"
             onClick={() => setOpen(false)}
-            className="self-start px-4 py-2 rounded-full bg-[#3D6B3A] text-white text-[10px] font-medium tracking-[0.1em] uppercase"
+            className="self-start px-5 py-2 rounded-full bg-[#3A2618] text-[#FAF5EC] text-[10px] font-medium tracking-[0.1em] uppercase"
             style={{ fontFamily: "var(--font-ui)" }}
           >
             Find Our Truck

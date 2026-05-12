@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chord & Cup — Direction C: Ink & Steam</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:           #1A1612;
+  --surface:      #231E19;
+  --card:         #2D2720;
+  --card-lift:    #38302A;
+  --copper:       #B5622A;
+  --copper-bright:#D47A3A;
+  --gold:         #C8943A;
+  --rust:         #7A3A20;
+  --cream:        #E8D5B7;
+  --cream-mid:    #C4A880;
+  --cream-dim:    #7A6650;
+  --monstera:     #162C1E;
+  --vine:         #1E4030;
+  --rule:         rgba(181,98,42,0.15);
+  --rule-light:   rgba(232,213,183,0.08);
+  --font-main:    'Syne', system-ui, sans-serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--cream);
+  font-family: var(--font-body);
+  padding: 48px 28px;
+  line-height: 1.6;
+}
+
+.board { max-width: 1000px; margin: 0 auto; }
+
+.direction-label {
+  font-family: var(--font-main);
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 8px;
+}
+
+/* ── HEADER ── */
+.brand-header {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 20px;
+  padding: 56px 52px;
+  margin-bottom: 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Tattoo flash-sheet grid lines faint */
+.brand-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(181,98,42,0.04) 79px, rgba(181,98,42,0.04) 80px),
+    repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(181,98,42,0.04) 79px, rgba(181,98,42,0.04) 80px);
+  pointer-events: none;
+}
+
+/* Staff lines subtle */
+.brand-header::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 0;
+  height: 60px;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 10px,
+    rgba(181,98,42,0.09) 10px,
+    rgba(181,98,42,0.09) 11px
+  );
+  pointer-events: none;
+}
+
+.brand-name {
+  font-family: var(--font-main);
+  font-size: clamp(48px, 7vw, 80px);
+  font-weight: 800;
+  color: var(--cream);
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  position: relative;
+  z-index: 1;
+}
+.brand-name span { color: var(--copper); }
+.ampersand {
+  font-size: 0.8em;
+  color: var(--copper-bright);
+  display: inline-block;
+}
+
+.brand-tagline {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--cream-dim);
+  margin-top: 16px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+}
+.brand-meta {
+  font-family: var(--font-main);
+  font-size: 9px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-top: 28px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Flash-sheet tattoo ornament */
+.tattoo-deco {
+  position: absolute;
+  right: 52px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 96px;
+  line-height: 1;
+  opacity: 0.06;
+  color: var(--cream);
+  user-select: none;
+  z-index: 1;
+  letter-spacing: -0.05em;
+}
+
+/* ── SECTIONS ── */
+.section { margin-bottom: 56px; }
+.section-title {
+  font-family: var(--font-main);
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--copper);
+  padding-bottom: 10px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--rule);
+}
+
+/* ── SWATCHES ── */
+.swatch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 10px; }
+.swatch { border-radius: 10px; overflow: hidden; }
+.swatch-color { height: 64px; }
+.swatch-info { background: var(--card); padding: 8px 10px; }
+.swatch-name { font-family: var(--font-main); font-size: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--cream); display: block; }
+.swatch-hex { font-family: monospace; font-size: 10px; color: var(--copper); display: block; margin-top: 2px; }
+.swatch-role { font-family: var(--font-body); font-size: 8px; color: var(--cream-dim); display: block; margin-top: 2px; }
+
+/* ── NOTES ── */
+.note { background: var(--card); border-left: 3px solid var(--copper); border-radius: 0 10px 10px 0; padding: 14px 20px; margin-bottom: 10px; }
+.note p { font-family: var(--font-body); font-size: 13px; color: var(--cream-dim); line-height: 1.65; }
+.note strong { color: var(--copper-bright); }
+.note-vine { border-left-color: var(--vine); }
+.note-vine strong { color: #4A8060; }
+.note-gold { border-left-color: var(--gold); }
+.note-gold strong { color: var(--gold); }
+
+/* ── COMPONENTS ── */
+.component-label { font-family: var(--font-main); font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); margin-bottom: 10px; margin-top: 4px; }
+.component-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 28px; }
+
+.btn {
+  font-family: var(--font-main);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 12px 30px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-primary { background: var(--copper); color: var(--bg); }
+.btn-primary:hover { background: var(--copper-bright); }
+.btn-outline { background: transparent; color: var(--cream); border: 1.5px solid var(--rule-light); }
+.btn-outline:hover { border-color: var(--copper); color: var(--copper); }
+.btn-gold { background: var(--gold); color: var(--bg); }
+.btn-vine { background: var(--vine); color: var(--cream-mid); border: 1px solid rgba(30,64,48,0.8); }
+
+/* Note: square-ish radius on buttons — tattoo/stamp feel */
+
+.badge { font-family: var(--font-main); font-size: 8px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 3px; }
+.badge-copper { background: rgba(181,98,42,0.15); color: var(--copper-bright); border: 1px solid rgba(181,98,42,0.25); }
+.badge-vine { background: rgba(22,44,30,0.8); color: #4A8060; border: 1px solid rgba(30,64,48,0.5); }
+.badge-cream { background: rgba(232,213,183,0.07); color: var(--cream-mid); border: 1px solid var(--rule-light); }
+.badge-gold { background: rgba(200,148,58,0.12); color: var(--gold); border: 1px solid rgba(200,148,58,0.2); }
+
+.nav-demo {
+  background: var(--surface);
+  padding: 14px 24px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  border: 1px solid var(--rule);
+}
+.nav-logo { font-family: var(--font-main); font-weight: 800; font-size: 16px; color: var(--cream); letter-spacing: -0.03em; }
+.nav-logo span { color: var(--copper); }
+.nav-link { font-family: var(--font-main); font-size: 9px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cream-dim); text-decoration: none; }
+.nav-link:hover { color: var(--copper); }
+.nav-cta { font-family: var(--font-main); font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; background: var(--copper); color: var(--bg); padding: 8px 18px; border-radius: 4px; text-decoration: none; margin-left: auto; }
+
+.card {
+  background: var(--card);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(181,98,42,0.12);
+  width: 185px;
+}
+.card-band { height: 72px; display: flex; align-items: center; justify-content: center; font-size: 28px; position: relative; overflow: hidden; }
+/* Flash-sheet grid on card band */
+.card-band::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(90deg, transparent, transparent 19px, rgba(0,0,0,0.06) 19px, rgba(0,0,0,0.06) 20px);
+}
+.card-body { padding: 14px 16px; }
+.card-tag { font-family: var(--font-main); font-size: 8px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--copper); margin-bottom: 4px; }
+.card-title { font-family: var(--font-main); font-size: 15px; font-weight: 700; color: var(--cream); letter-spacing: -0.02em; line-height: 1.2; }
+.card-desc { font-family: var(--font-body); font-size: 11px; color: var(--cream-dim); margin-top: 4px; line-height: 1.5; }
+.card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; }
+.card-price { font-family: var(--font-main); font-size: 16px; font-weight: 300; color: var(--copper-bright); }
+.card-btn { font-family: var(--font-main); font-size: 7px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; background: rgba(181,98,42,0.15); color: var(--copper); padding: 5px 10px; border-radius: 3px; border: 1px solid rgba(181,98,42,0.2); cursor: pointer; }
+
+/* Flash sheet demo — tattoo reference component */
+.flash-sheet {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  gap: 0;
+  position: relative;
+  overflow: hidden;
+}
+.flash-sheet::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(181,98,42,0.05) 39px, rgba(181,98,42,0.05) 40px),
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(181,98,42,0.05) 39px, rgba(181,98,42,0.05) 40px);
+  pointer-events: none;
+}
+.flash-item {
+  flex: 1;
+  border-right: 1px solid var(--rule);
+  padding: 0 24px 0 0;
+  margin-right: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  position: relative;
+  z-index: 1;
+}
+.flash-item:last-child { border-right: none; padding-right: 0; margin-right: 0; }
+.flash-icon { font-size: 36px; opacity: 0.85; }
+.flash-title { font-family: var(--font-main); font-size: 13px; font-weight: 700; color: var(--cream); letter-spacing: -0.01em; }
+.flash-sub { font-family: var(--font-body); font-size: 10px; color: var(--cream-dim); }
+
+.hero-preview {
+  background: var(--surface);
+  border-radius: 14px;
+  padding: 56px 52px;
+  border: 1px solid var(--rule);
+  position: relative;
+  overflow: hidden;
+}
+.hero-preview::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(181,98,42,0.03) 79px, rgba(181,98,42,0.03) 80px),
+    repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(181,98,42,0.03) 79px, rgba(181,98,42,0.03) 80px);
+  pointer-events: none;
+}
+.hero-preview::after {
+  content: '♩ ♪';
+  position: absolute;
+  right: 48px; bottom: 32px;
+  font-size: 80px;
+  opacity: 0.04;
+  color: var(--cream);
+  letter-spacing: 0.1em;
+  z-index: 0;
+  pointer-events: none;
+}
+.hero-eyebrow { font-family: var(--font-main); font-size: 9px; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: var(--copper); margin-bottom: 18px; position: relative; z-index: 1; }
+.hero-headline { font-family: var(--font-main); font-size: 50px; font-weight: 800; color: var(--cream); line-height: 0.95; letter-spacing: -0.04em; position: relative; z-index: 1; }
+.hero-headline em { color: var(--copper); font-style: normal; display: block; }
+.hero-sub { font-family: var(--font-body); font-size: 15px; font-weight: 300; color: var(--cream-dim); margin-top: 18px; max-width: 400px; line-height: 1.65; position: relative; z-index: 1; }
+.hero-actions { display: flex; gap: 12px; margin-top: 28px; position: relative; z-index: 1; }
+
+/* Divider */
+.ink-rule {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 4px 0 20px;
+}
+.ink-rule::before, .ink-rule::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+.ink-rule-center {
+  font-size: 18px;
+  color: var(--copper);
+  opacity: 0.5;
+}
+
+.texture-row { display: flex; gap: 14px; flex-wrap: wrap; }
+.tex { width: 110px; height: 72px; border-radius: 8px; }
+
+.tokens-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.token-group { background: var(--card); border-radius: 8px; padding: 18px; border: 1px solid var(--rule); }
+.token-group h4 { font-family: var(--font-main); font-size: 8px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--copper); margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+.token-row { display: flex; justify-content: space-between; padding: 3px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
+.token-name { font-family: monospace; font-size: 10px; color: var(--cream-dim); }
+.token-value { font-family: monospace; font-size: 10px; color: var(--copper); }
+
+.input-demo { font-family: var(--font-body); font-size: 13px; padding: 10px 16px; border: 1.5px solid rgba(181,98,42,0.2); border-radius: 4px; background: var(--card); color: var(--cream); outline: none; width: 220px; }
+.input-demo::placeholder { color: var(--cream-dim); opacity: 0.5; }
+.input-demo:focus { border-color: var(--copper); }
+</style>
+</head>
+<body>
+<div class="board">
+
+  <div class="direction-label">Direction C — Ink & Steam · Dark-first · Edgiest · Most Seattle</div>
+
+  <div class="brand-header">
+    <div class="tattoo-deco">♩♪🌿</div>
+    <div class="brand-name">Chord<br><span class="ampersand">&</span> Cup</div>
+    <div class="brand-tagline">Pull up a seat · Stay a while · Seattle</div>
+    <div class="brand-meta">Specialty Coffee · Est. 2024</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Mood & Direction</div>
+    <div class="note"><p><strong>Atmosphere:</strong> A basement record store that also happens to serve the best espresso on the block. Exposed brick, a tattoo flash sheet framed on the wall, someone's vinyl set bleeding through the ceiling. You don't rush here.</p></div>
+    <div class="note"><p><strong>Palette logic:</strong> Near-black as the total ground. Copper and rust as the only warm light — like a single Edison bulb over the bar. Everything else recedes.</p></div>
+    <div class="note note-vine"><p><strong>Green treatment:</strong> The darkest interpretation — monstera as shadow, almost black-green. Appears only in plant tags and botanical moments, never as a background field.</p></div>
+    <div class="note note-gold"><p><strong>Type: Syne 800</strong> — the heaviest, most distinctive of the three options. High x-height, strong verticals. Echoes the boldness of tattoo lettering and vintage poster type. DM Sans light for body keeps it readable.</p></div>
+    <div class="note"><p><strong>Sheet music / tattoo reference:</strong> Flash-sheet grid (faint crosshatch) baked into surfaces. Musical notes as near-invisible watermark. The angular button radius and badge shape pull from stamp/flash aesthetics. A "flash sheet" component for the menu — items laid out like tattoo designs on a card.</p></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Color Palette</div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-color" style="background:#1A1612"></div><div class="swatch-info"><span class="swatch-name">Ink</span><span class="swatch-hex">#1A1612</span><span class="swatch-role">Page bg ★</span></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#231E19"></div><div class="swatch-info"><span class="swatch-name">Surface</span><span class="swatch-hex">#231E19</span><span class="swatch-role">Cards, nav</span></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#2D2720"></div><div class="swatch-info"><span class="swatch-name">Lifted</span><span class="swatch-hex">#2D2720</span><span class="swatch-role">Hover states</span></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#B5622A"></div><div class="swatch-info"><span class="swatch-name">Copper</span><span class="swatch-hex">#B5622A</span><span class="swatch-role">Primary ★</span></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#D47A3A"></div><div class="swatch-info"><span class="swatch-name">Copper Bright</span><span class="swatch-hex">#D47A3A</span><span class="swatch-role">Hover</span></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#C8943A"></div><div class="swatch-info"><span class="swatch-name">Gold</span><span class="swatch-hex">#C8943A</span><span class="swatch-role">Accent</span></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#E8D5B7"></div><div class="swatch-info"><span class="swatch-name">Cream</span><span class="swatch-hex">#E8D5B7</span><span class="swatch-role">Text on dark</span></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#7A6650"></div><div class="swatch-info"><span class="swatch-name">Cream Dim</span><span class="swatch-hex">#7A6650</span><span class="swatch-role">Body text</span></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#162C1E"></div><div class="swatch-info"><span class="swatch-name">Monstera</span><span class="swatch-hex">#162C1E</span><span class="swatch-role">Plant shadow</span></div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Typography — Syne 800 + DM Sans 300</div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--rule)">
+      <div style="font-family:'Syne';font-size:9px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:var(--copper);margin-bottom:8px">Display · 800</div>
+      <div style="font-family:'Syne';font-size:54px;font-weight:800;color:#E8D5B7;letter-spacing:-0.04em;line-height:0.95">The chair<br><span style="color:var(--copper)">finds you.</span></div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--rule)">
+      <div style="font-family:'Syne';font-size:9px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:var(--copper);margin-bottom:8px">Heading · 700</div>
+      <div style="font-family:'Syne';font-size:28px;font-weight:700;color:#E8D5B7;letter-spacing:-0.03em">Where we'll be this week</div>
+    </div>
+    <div style="margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--rule)">
+      <div style="font-family:'Syne';font-size:9px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:var(--copper);margin-bottom:8px">Body · DM Sans 300</div>
+      <div style="font-family:'DM Sans';font-size:15px;font-weight:300;color:#7A6650;line-height:1.7;max-width:520px">Somewhere between a third place and a first choice. We're the truck with the plants — find us at a market this weekend. Bring headphones or don't. Either works.</div>
+    </div>
+    <div>
+      <div style="font-family:'Syne';font-size:9px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:var(--copper);margin-bottom:8px">UI Label · Syne 700 caps</div>
+      <div style="font-family:'Syne';font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--copper)">Single Origin · Small Batch · Find Our Truck</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Signature Element — Ornamental Divider</div>
+    <div class="ink-rule"><span class="ink-rule-center">♩</span></div>
+    <p style="font-family:var(--font-body);font-size:12px;font-weight:300;color:var(--cream-dim)">A single musical note centered in a hairline rule. Clean and slightly ceremonial — like a chapter break in a handmade zine.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Signature Element — Tattoo Flash Sheet (Menu Layout)</div>
+    <div class="flash-sheet">
+      <div class="flash-item">
+        <div class="flash-icon">☕</div>
+        <div class="flash-title">Oat Flat White</div>
+        <div class="flash-sub">Double ristretto, oat</div>
+        <div style="font-family:'Syne';font-size:14px;font-weight:300;color:var(--copper);margin-top:4px">$5.50</div>
+      </div>
+      <div class="flash-item">
+        <div class="flash-icon">🌿</div>
+        <div class="flash-title">Dark Canopy</div>
+        <div class="flash-sub">Cold brew, cardamom</div>
+        <div style="font-family:'Syne';font-size:14px;font-weight:300;color:var(--copper);margin-top:4px">$6.50</div>
+      </div>
+      <div class="flash-item">
+        <div class="flash-icon">🍯</div>
+        <div class="flash-title">Ember Honey</div>
+        <div class="flash-sub">Espresso, local honey</div>
+        <div style="font-family:'Syne';font-size:14px;font-weight:300;color:var(--copper);margin-top:4px">$6.00</div>
+      </div>
+      <div class="flash-item">
+        <div class="flash-icon">🫧</div>
+        <div class="flash-title">Forest Matcha</div>
+        <div class="flash-sub">Ceremonial, oat, iced</div>
+        <div style="font-family:'Syne';font-size:14px;font-weight:300;color:var(--copper);margin-top:4px">$6.00</div>
+      </div>
+    </div>
+    <p style="font-family:var(--font-body);font-size:12px;font-weight:300;color:var(--cream-dim);margin-top:12px">Menu laid out like a tattoo flash sheet — items in a grid with faint crosshatch background. Bold names, minimal detail.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Hero Preview</div>
+    <div class="hero-preview">
+      <div class="hero-eyebrow">Specialty Coffee · Seattle</div>
+      <div class="hero-headline">The chair<br><em>finds you.</em></div>
+      <div class="hero-sub">A rolling café for city dwellers. Find us at markets and events around Seattle — we'll have the good stuff ready.</div>
+      <div class="hero-actions">
+        <button class="btn btn-primary">Find Our Truck</button>
+        <button class="btn btn-outline">View Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Components</div>
+
+    <div class="component-label">Navigation</div>
+    <div class="component-row">
+      <div class="nav-demo" style="flex:1;min-width:320px">
+        <div class="nav-logo">Chord <span>&</span> Cup</div>
+        <a class="nav-link" href="#">Menu</a>
+        <a class="nav-link" href="#">Find Us</a>
+        <a class="nav-link" href="#">Reviews</a>
+        <a class="nav-cta" href="#">Order Now</a>
+      </div>
+    </div>
+
+    <div class="component-label">Buttons (angular — stamp/flash feel)</div>
+    <div class="component-row">
+      <button class="btn btn-primary">Order Now</button>
+      <button class="btn btn-gold">Find Our Truck</button>
+      <button class="btn btn-outline">View Menu</button>
+      <button class="btn btn-vine">Seasonal</button>
+    </div>
+
+    <div class="component-label">Badges (angular)</div>
+    <div class="component-row">
+      <span class="badge badge-copper">Single Origin</span>
+      <span class="badge badge-vine">Plant-Based</span>
+      <span class="badge badge-gold">Seasonal</span>
+      <span class="badge badge-cream">Staff Pick</span>
+    </div>
+
+    <div class="component-label">Card (dark)</div>
+    <div class="component-row">
+      <div class="card">
+        <div class="card-band" style="background:linear-gradient(135deg,#231E19,#2D2720)">☕</div>
+        <div class="card-body">
+          <div class="card-tag">Espresso · Milk</div>
+          <div class="card-title">Oat Flat White</div>
+          <div class="card-desc">Double ristretto, steamed oat milk</div>
+          <div class="card-footer"><span class="card-price">$5.50</span><button class="card-btn">Add</button></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-band" style="background:linear-gradient(135deg,#162C1E,#1E4030)">🌿</div>
+        <div class="card-body">
+          <div class="card-tag">Cold · Seasonal</div>
+          <div class="card-title">Dark Canopy Cold Brew</div>
+          <div class="card-desc">18-hr cold brew, cardamom</div>
+          <div class="card-footer"><span class="card-price">$6.50</span><button class="card-btn">Add</button></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-band" style="background:linear-gradient(135deg,#7A3A20,#B5622A)">🍯</div>
+        <div class="card-body">
+          <div class="card-tag">Signature · Hot</div>
+          <div class="card-title">Ember Honey Latte</div>
+          <div class="card-desc">Espresso, local honey, whole milk</div>
+          <div class="card-footer"><span class="card-price">$6.00</span><button class="card-btn">Add</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="component-label">Input</div>
+    <div class="component-row">
+      <input class="input-demo" type="email" placeholder="your@email.com">
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Surface Treatments</div>
+    <div class="texture-row">
+      <div><div class="component-label">Ink base</div><div class="tex" style="background:#1A1612"></div></div>
+      <div><div class="component-label">Surface</div><div class="tex" style="background:linear-gradient(160deg,#231E19,#2D2720)"></div></div>
+      <div><div class="component-label">Copper glow</div><div class="tex" style="background:radial-gradient(ellipse at 30% 60%,rgba(181,98,42,0.4) 0%,#1A1612 65%)"></div></div>
+      <div><div class="component-label">Monstera</div><div class="tex" style="background:linear-gradient(135deg,#1A1612,#162C1E)"></div></div>
+      <div><div class="component-label">Flash grid</div><div class="tex" style="background:#231E19;background-image:repeating-linear-gradient(90deg,transparent,transparent 19px,rgba(181,98,42,0.08) 19px,rgba(181,98,42,0.08) 20px),repeating-linear-gradient(0deg,transparent,transparent 19px,rgba(181,98,42,0.08) 19px,rgba(181,98,42,0.08) 20px)"></div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">CSS Design Tokens</div>
+    <div class="tokens-grid">
+      <div class="token-group">
+        <h4>Colors</h4>
+        <div class="token-row"><span class="token-name">--bg</span><span class="token-value">#1A1612</span></div>
+        <div class="token-row"><span class="token-name">--surface</span><span class="token-value">#231E19</span></div>
+        <div class="token-row"><span class="token-name">--card</span><span class="token-value">#2D2720</span></div>
+        <div class="token-row"><span class="token-name">--copper</span><span class="token-value">#B5622A</span></div>
+        <div class="token-row"><span class="token-name">--copper-bright</span><span class="token-value">#D47A3A</span></div>
+        <div class="token-row"><span class="token-name">--gold</span><span class="token-value">#C8943A</span></div>
+        <div class="token-row"><span class="token-name">--cream</span><span class="token-value">#E8D5B7</span></div>
+        <div class="token-row"><span class="token-name">--cream-dim</span><span class="token-value">#7A6650</span></div>
+        <div class="token-row"><span class="token-name">--monstera</span><span class="token-value">#162C1E</span></div>
+      </div>
+      <div class="token-group">
+        <h4>Typography</h4>
+        <div class="token-row"><span class="token-name">--font-main</span><span class="token-value">'Syne'</span></div>
+        <div class="token-row"><span class="token-name">--font-body</span><span class="token-value">'DM Sans'</span></div>
+        <h4 style="margin-top:12px">Scale</h4>
+        <div class="token-row"><span class="token-name">hero</span><span class="token-value">clamp(44px,7vw,80px) / 800</span></div>
+        <div class="token-row"><span class="token-name">heading</span><span class="token-value">26–30px / 700</span></div>
+        <div class="token-row"><span class="token-name">sub</span><span class="token-value">16–18px / 400</span></div>
+        <div class="token-row"><span class="token-name">body</span><span class="token-value">15px / 300</span></div>
+        <div class="token-row"><span class="token-name">label</span><span class="token-value">8–10px / 700 caps</span></div>
+        <h4 style="margin-top:12px">Radius</h4>
+        <div class="token-row"><span class="token-name">buttons/badges</span><span class="token-value">3–4px (near-square)</span></div>
+        <div class="token-row"><span class="token-name">cards/surfaces</span><span class="token-value">8–14px</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
