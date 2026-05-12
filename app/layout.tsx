@@ -1,35 +1,28 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, DM_Sans, Crimson_Pro } from "next/font/google";
+import { Outfit, DM_Sans } from "next/font/google";
 import "./globals.css";
 
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
-  weight: ["300", "400", "600", "700"],
-  style: ["normal", "italic"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
   subsets: ["latin"],
   weight: ["300", "400", "500"],
-});
-
-const crimsonPro = Crimson_Pro({
-  variable: "--font-crimson",
-  subsets: ["latin"],
-  weight: ["400"],
   style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
-  title: "Urban Roots Coffee — Seattle",
+  title: "Chord & Cup — Seattle",
   description:
-    "Specialty coffee truck rooted in Seattle. Find us at farmers markets and events across the city. Where the jungle meets your cup.",
+    "Specialty coffee truck rooted in Seattle. Find us at farmers markets and events across the city. Pull up a seat. Stay a while.",
   openGraph: {
-    title: "Urban Roots Coffee",
-    description: "Where the jungle meets your cup.",
-    siteName: "Urban Roots Coffee",
+    title: "Chord & Cup",
+    description: "Pull up a seat. Stay a while.",
+    siteName: "Chord & Cup",
   },
 };
 
@@ -41,7 +34,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${dmSans.variable} ${crimsonPro.variable} h-full antialiased`}
+      className={`${outfit.variable} ${dmSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

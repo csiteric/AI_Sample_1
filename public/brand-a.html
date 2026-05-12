@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chord & Cup — Direction A: Espresso & Ember</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:           #141009;
+  --surface:      #1F1610;
+  --card:         #2A1E14;
+  --card-lift:    #332519;
+  --ember:        #C87533;
+  --ember-dim:    #8B5230;
+  --copper:       #A0633A;
+  --cream:        #F0E2CC;
+  --cream-dim:    #A89078;
+  --leather:      #5C3520;
+  --monstera:     #1A3828;
+  --monstera-mid: #2B5040;
+  --rule:         rgba(200,117,51,0.18);
+  --font-main:    'Space Grotesk', system-ui, sans-serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--cream);
+  font-family: var(--font-body);
+  padding: 48px 28px;
+  line-height: 1.6;
+}
+
+.board { max-width: 1000px; margin: 0 auto; }
+
+/* ── HEADER ── */
+.direction-label {
+  font-family: var(--font-main);
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ember);
+  margin-bottom: 8px;
+}
+
+.brand-header {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 16px;
+  padding: 52px 48px;
+  margin-bottom: 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Staff line decoration */
+.brand-header::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 28px;
+  height: 44px;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 8px,
+    rgba(200,117,51,0.07) 8px,
+    rgba(200,117,51,0.07) 9px
+  );
+  pointer-events: none;
+}
+
+.brand-name {
+  font-family: var(--font-main);
+  font-size: clamp(44px, 6vw, 72px);
+  font-weight: 700;
+  color: var(--cream);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.brand-name span { color: var(--ember); }
+
+.brand-tagline {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--cream-dim);
+  margin-top: 14px;
+  letter-spacing: 0.04em;
+}
+
+.brand-meta {
+  font-family: var(--font-main);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ember-dim);
+  margin-top: 28px;
+}
+
+.musical-deco {
+  position: absolute;
+  right: 48px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 88px;
+  opacity: 0.06;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  font-family: var(--font-main);
+  font-weight: 700;
+  color: var(--ember);
+  user-select: none;
+}
+
+/* ── SECTIONS ── */
+.section { margin-bottom: 56px; }
+
+.section-title {
+  font-family: var(--font-main);
+  font-size: 9px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ember);
+  padding-bottom: 10px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--rule);
+}
+
+/* ── PALETTE ── */
+.swatch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 10px; }
+.swatch { border-radius: 10px; overflow: hidden; }
+.swatch-color { height: 64px; }
+.swatch-info { background: var(--card); padding: 8px 10px; }
+.swatch-name { font-family: var(--font-main); font-size: 9px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--cream); display: block; }
+.swatch-hex { font-family: monospace; font-size: 10px; color: var(--ember); display: block; margin-top: 2px; }
+.swatch-role { font-family: var(--font-body); font-size: 8px; color: var(--cream-dim); display: block; margin-top: 2px; }
+
+/* ── TYPOGRAPHY ── */
+.type-row { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--rule); }
+.type-row:last-child { border-bottom: none; }
+.type-label { font-family: var(--font-main); font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ember-dim); margin-bottom: 8px; }
+
+/* ── NOTES ── */
+.note { background: var(--card); border-left: 3px solid var(--ember); border-radius: 0 10px 10px 0; padding: 14px 20px; margin-bottom: 10px; }
+.note p { font-family: var(--font-body); font-size: 13px; color: var(--cream-dim); line-height: 1.6; }
+.note strong { color: var(--ember); }
+.note-green { border-left-color: var(--monstera-mid); }
+.note-green strong { color: #5A9070; }
+
+/* ── COMPONENTS ── */
+.component-label { font-family: var(--font-main); font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ember-dim); margin-bottom: 10px; margin-top: 4px; }
+.component-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 28px; }
+
+/* Buttons */
+.btn {
+  font-family: var(--font-main);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 11px 28px;
+  border-radius: 100px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+.btn-primary { background: var(--ember); color: var(--bg); }
+.btn-primary:hover { background: #D98844; }
+.btn-outline { background: transparent; color: var(--cream); border: 1.5px solid rgba(240,226,204,0.25); }
+.btn-outline:hover { border-color: var(--ember); color: var(--ember); }
+.btn-green { background: var(--monstera); color: var(--cream); border: 1px solid var(--monstera-mid); }
+.btn-ghost { background: var(--card); color: var(--cream-dim); }
+
+/* Badges */
+.badge { font-family: var(--font-main); font-size: 8px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; }
+.badge-ember { background: rgba(200,117,51,0.15); color: var(--ember); border: 1px solid rgba(200,117,51,0.25); }
+.badge-green { background: rgba(26,56,40,0.8); color: #5A9070; border: 1px solid rgba(43,80,64,0.5); }
+.badge-cream { background: rgba(240,226,204,0.08); color: var(--cream-dim); border: 1px solid rgba(240,226,204,0.12); }
+
+/* Nav */
+.nav-demo {
+  background: var(--surface);
+  padding: 14px 24px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  border: 1px solid var(--rule);
+}
+.nav-logo { font-family: var(--font-main); font-weight: 700; font-size: 17px; color: var(--cream); letter-spacing: -0.02em; }
+.nav-logo span { color: var(--ember); }
+.nav-link { font-family: var(--font-main); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cream-dim); text-decoration: none; }
+.nav-link:hover { color: var(--ember); }
+.nav-cta { font-family: var(--font-main); font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; background: var(--ember); color: var(--bg); padding: 8px 18px; border-radius: 100px; text-decoration: none; margin-left: auto; }
+
+/* Cards */
+.card {
+  background: var(--card);
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(200,117,51,0.12);
+  width: 185px;
+}
+.card-band { height: 72px; display: flex; align-items: center; justify-content: center; font-size: 28px; }
+.card-body { padding: 14px 16px; }
+.card-tag { font-family: var(--font-main); font-size: 8px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ember-dim); margin-bottom: 4px; }
+.card-title { font-family: var(--font-main); font-size: 16px; font-weight: 600; color: var(--cream); letter-spacing: -0.01em; line-height: 1.2; }
+.card-desc { font-family: var(--font-body); font-size: 11px; color: var(--cream-dim); margin-top: 4px; line-height: 1.5; }
+.card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; }
+.card-price { font-family: var(--font-main); font-size: 17px; font-weight: 300; color: var(--ember); }
+.card-btn { font-family: var(--font-main); font-size: 8px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(200,117,51,0.15); color: var(--ember); padding: 5px 10px; border-radius: 100px; border: 1px solid rgba(200,117,51,0.2); cursor: pointer; }
+
+/* Hero */
+.hero-preview {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 52px 48px;
+  border: 1px solid var(--rule);
+  position: relative;
+  overflow: hidden;
+}
+.hero-preview::before {
+  content: '♩ ♪ ♫';
+  position: absolute;
+  right: 36px; bottom: 24px;
+  font-size: 64px;
+  opacity: 0.04;
+  color: var(--ember);
+  letter-spacing: 0.1em;
+  pointer-events: none;
+}
+.hero-eyebrow { font-family: var(--font-main); font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ember); margin-bottom: 16px; }
+.hero-headline { font-family: var(--font-main); font-size: 46px; font-weight: 700; color: var(--cream); line-height: 1.05; letter-spacing: -0.03em; }
+.hero-headline em { color: var(--ember); font-style: normal; }
+.hero-sub { font-family: var(--font-body); font-size: 16px; font-weight: 300; color: var(--cream-dim); margin-top: 14px; max-width: 420px; line-height: 1.65; }
+.hero-actions { display: flex; gap: 12px; margin-top: 28px; }
+
+/* Staff divider */
+.staff-rule {
+  width: 100%;
+  height: 24px;
+  margin: 8px 0 24px;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 4px,
+    var(--rule) 4px,
+    var(--rule) 5px
+  );
+  position: relative;
+}
+.staff-rule::after {
+  content: '𝄞';
+  position: absolute;
+  left: 0; top: 50%;
+  transform: translateY(-50%);
+  font-size: 28px;
+  color: var(--ember);
+  opacity: 0.4;
+  line-height: 1;
+}
+
+/* Textures */
+.texture-row { display: flex; gap: 14px; flex-wrap: wrap; }
+.tex { width: 110px; height: 72px; border-radius: 10px; }
+
+/* Token grid */
+.tokens-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.token-group { background: var(--card); border-radius: 10px; padding: 18px; border: 1px solid var(--rule); }
+.token-group h4 { font-family: var(--font-main); font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ember); margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+.token-row { display: flex; justify-content: space-between; padding: 3px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
+.token-name { font-family: monospace; font-size: 10px; color: var(--cream-dim); }
+.token-value { font-family: monospace; font-size: 10px; color: var(--ember); }
+
+/* Input */
+.input-demo { font-family: var(--font-body); font-size: 13px; padding: 10px 16px; border: 1.5px solid rgba(200,117,51,0.2); border-radius: 10px; background: var(--card); color: var(--cream); outline: none; width: 220px; }
+.input-demo::placeholder { color: var(--cream-dim); opacity: 0.5; }
+.input-demo:focus { border-color: var(--ember); }
+</style>
+</head>
+<body>
+<div class="board">
+
+  <!-- HEADER -->
+  <div class="direction-label">Direction A — Espresso & Ember · Dark-first · High contrast</div>
+  <div class="brand-header">
+    <div class="musical-deco">♩♪♫</div>
+    <div class="brand-name">Chord <span>&</span> Cup</div>
+    <div class="brand-tagline">Pull up a seat. Stay a while.</div>
+    <div class="brand-meta">Seattle · Specialty Coffee · Est. 2024</div>
+  </div>
+
+  <!-- MOOD NOTES -->
+  <div class="section">
+    <div class="section-title">Mood & Direction</div>
+    <div class="note"><p><strong>Atmosphere:</strong> A dimly lit room where someone nearby is playing a chord on an acoustic guitar. Warm amber light on dark wood. The smell of espresso cutting through.</p></div>
+    <div class="note"><p><strong>Palette logic:</strong> Near-black espresso base with ember/copper as the primary signal color. Everything dark, nothing harsh — like candlelight, not fluorescent.</p></div>
+    <div class="note note-green"><p><strong>Green treatment:</strong> Monstera deep green used sparingly — appears in tags and schedule cards, never dominant. A nod to the plants without competing with the warmth.</p></div>
+    <div class="note"><p><strong>Type:</strong> Space Grotesk only. Bold weight for display, light for body. No serifs, no decorative faces — the music and tattoo character comes from composition and restraint, not ornament.</p></div>
+    <div class="note"><p><strong>Sheet music / tattoo reference:</strong> Musical staff lines as section dividers. ♩♪♫ as ambient decoration at low opacity. Typography weight contrast mimics flash-sheet boldness.</p></div>
+  </div>
+
+  <!-- PALETTE -->
+  <div class="section">
+    <div class="section-title">Color Palette</div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-color" style="background:#141009"></div><div class="swatch-info"><span class="swatch-name">Espresso</span><span class="swatch-hex">#141009</span><span class="swatch-role">Page bg</span></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#1F1610"></div><div class="swatch-info"><span class="swatch-name">Dark Wood</span><span class="swatch-hex">#1F1610</span><span class="swatch-role">Surface</span></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#2A1E14"></div><div class="swatch-info"><span class="swatch-name">Leather</span><span class="swatch-hex">#2A1E14</span><span class="swatch-role">Cards</span></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#C87533"></div><div class="swatch-info"><span class="swatch-name">Ember</span><span class="swatch-hex">#C87533</span><span class="swatch-role">Primary ★</span></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#A0633A"></div><div class="swatch-info"><span class="swatch-name">Copper</span><span class="swatch-hex">#A0633A</span><span class="swatch-role">Hover</span></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#F0E2CC"></div><div class="swatch-info"><span class="swatch-name">Cream</span><span class="swatch-hex">#F0E2CC</span><span class="swatch-role">Text on dark</span></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#A89078"></div><div class="swatch-info"><span class="swatch-name">Dim</span><span class="swatch-hex">#A89078</span><span class="swatch-role">Body text</span></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#1A3828"></div><div class="swatch-info"><span class="swatch-name">Monstera</span><span class="swatch-hex">#1A3828</span><span class="swatch-role">Plant accent</span></div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#2B5040"></div><div class="swatch-info"><span class="swatch-name">Leaf</span><span class="swatch-hex">#2B5040</span><span class="swatch-role">Tags</span></div></div>
+    </div>
+  </div>
+
+  <!-- TYPOGRAPHY -->
+  <div class="section">
+    <div class="section-title">Typography — Space Grotesk only</div>
+    <div class="type-row">
+      <div class="type-label">Display / Hero — 700 weight</div>
+      <div style="font-family:'Space Grotesk';font-size:54px;font-weight:700;color:#F0E2CC;letter-spacing:-0.03em;line-height:1.05">Pull up a <span style="color:#C87533">seat.</span></div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">Heading — 600 weight</div>
+      <div style="font-family:'Space Grotesk';font-size:30px;font-weight:600;color:#F0E2CC;letter-spacing:-0.02em">This week's schedule</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">Subheading — 300 weight</div>
+      <div style="font-family:'Space Grotesk';font-size:20px;font-weight:300;color:#A89078;letter-spacing:0.01em">Saturday at Capitol Hill Farmers Market</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">Body — DM Sans 400</div>
+      <div style="font-family:'DM Sans';font-size:15px;color:#A89078;line-height:1.7;max-width:520px">We're the table in the corner with the good light. Come for the espresso, stay because it's hard to leave when the music's right and your cup's still warm.</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">UI Label — Space Grotesk 500 uppercase</div>
+      <div style="font-family:'Space Grotesk';font-size:10px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:#C87533">Find our truck · Today's roast · Order ahead</div>
+    </div>
+  </div>
+
+  <!-- STAFF DIVIDER DEMO -->
+  <div class="section">
+    <div class="section-title">Signature Element — Musical Staff Divider</div>
+    <div class="staff-rule"></div>
+    <p style="font-family:var(--font-body);font-size:12px;color:var(--cream-dim)">Used between page sections. Treble clef at low opacity, five-line staff as the rule. Subtle — reads as texture before it reads as music.</p>
+  </div>
+
+  <!-- HERO PREVIEW -->
+  <div class="section">
+    <div class="section-title">Hero Section Preview</div>
+    <div class="hero-preview">
+      <div class="hero-eyebrow">Specialty Coffee · Seattle</div>
+      <div class="hero-headline">The cup<br>that earns <em>the chair.</em></div>
+      <div class="hero-sub">A place to work, drift, or just sit. We're at markets and events around the city every week.</div>
+      <div class="hero-actions">
+        <button class="btn btn-primary">Find Our Truck</button>
+        <button class="btn btn-outline">View Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPONENTS -->
+  <div class="section">
+    <div class="section-title">Components</div>
+
+    <div class="component-label">Navigation</div>
+    <div class="component-row">
+      <div class="nav-demo" style="flex:1;min-width:320px">
+        <div class="nav-logo">Chord <span>&</span> Cup</div>
+        <a class="nav-link" href="#">Menu</a>
+        <a class="nav-link" href="#">Find Us</a>
+        <a class="nav-link" href="#">Reviews</a>
+        <a class="nav-cta" href="#">Order Now</a>
+      </div>
+    </div>
+
+    <div class="component-label">Buttons</div>
+    <div class="component-row">
+      <button class="btn btn-primary">Order Now</button>
+      <button class="btn btn-outline">View Menu</button>
+      <button class="btn btn-green">Find Our Truck</button>
+      <button class="btn btn-ghost">Learn More</button>
+    </div>
+
+    <div class="component-label">Badges</div>
+    <div class="component-row">
+      <span class="badge badge-ember">Single Origin</span>
+      <span class="badge badge-green">Plant-Based</span>
+      <span class="badge badge-cream">Staff Pick</span>
+      <span class="badge badge-ember">Seasonal</span>
+      <span class="badge badge-green">Today's Special</span>
+    </div>
+
+    <div class="component-label">Menu Cards</div>
+    <div class="component-row">
+      <div class="card">
+        <div class="card-band" style="background:linear-gradient(135deg,#2A1E14,#3D2A18)">☕</div>
+        <div class="card-body">
+          <div class="card-tag">Espresso · Milk</div>
+          <div class="card-title">Oat Flat White</div>
+          <div class="card-desc">Double ristretto, steamed oat milk</div>
+          <div class="card-footer"><span class="card-price">$5.50</span><button class="card-btn">Add</button></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-band" style="background:linear-gradient(135deg,#1A3828,#2B5040)">🌿</div>
+        <div class="card-body">
+          <div class="card-tag">Cold · Seasonal</div>
+          <div class="card-title">Dark Canopy Cold Brew</div>
+          <div class="card-desc">18-hr cold brew, cardamom, oat milk</div>
+          <div class="card-footer"><span class="card-price">$6.50</span><button class="card-btn">Add</button></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-band" style="background:linear-gradient(135deg,#3D2A18,#C87533)">🍯</div>
+        <div class="card-body">
+          <div class="card-tag">Signature · Hot</div>
+          <div class="card-title">Ember Honey Latte</div>
+          <div class="card-desc">Espresso, local honey, whole milk</div>
+          <div class="card-footer"><span class="card-price">$6.00</span><button class="card-btn">Add</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="component-label">Input</div>
+    <div class="component-row">
+      <input class="input-demo" type="text" placeholder="your@email.com">
+    </div>
+  </div>
+
+  <!-- TEXTURES -->
+  <div class="section">
+    <div class="section-title">Surface Treatments</div>
+    <div class="texture-row">
+      <div><div class="component-label">Base</div><div class="tex" style="background:#141009;border:1px solid #2A1E14"></div></div>
+      <div><div class="component-label">Surface</div><div class="tex" style="background:linear-gradient(160deg,#1F1610,#2A1E14)"></div></div>
+      <div><div class="component-label">Ember glow</div><div class="tex" style="background:radial-gradient(ellipse at 30% 60%,rgba(200,117,51,0.35) 0%,#1F1610 65%)"></div></div>
+      <div><div class="component-label">Monstera</div><div class="tex" style="background:linear-gradient(135deg,#141009 0%,#1A3828 100%)"></div></div>
+      <div><div class="component-label">Leather</div><div class="tex" style="background:linear-gradient(160deg,#3D2A18,#5C3520)"></div></div>
+    </div>
+  </div>
+
+  <!-- TOKENS -->
+  <div class="section">
+    <div class="section-title">CSS Design Tokens</div>
+    <div class="tokens-grid">
+      <div class="token-group">
+        <h4>Colors</h4>
+        <div class="token-row"><span class="token-name">--bg</span><span class="token-value">#141009</span></div>
+        <div class="token-row"><span class="token-name">--surface</span><span class="token-value">#1F1610</span></div>
+        <div class="token-row"><span class="token-name">--card</span><span class="token-value">#2A1E14</span></div>
+        <div class="token-row"><span class="token-name">--ember</span><span class="token-value">#C87533</span></div>
+        <div class="token-row"><span class="token-name">--copper</span><span class="token-value">#A0633A</span></div>
+        <div class="token-row"><span class="token-name">--cream</span><span class="token-value">#F0E2CC</span></div>
+        <div class="token-row"><span class="token-name">--cream-dim</span><span class="token-value">#A89078</span></div>
+        <div class="token-row"><span class="token-name">--monstera</span><span class="token-value">#1A3828</span></div>
+        <div class="token-row"><span class="token-name">--leaf</span><span class="token-value">#2B5040</span></div>
+      </div>
+      <div class="token-group">
+        <h4>Typography</h4>
+        <div class="token-row"><span class="token-name">--font-main</span><span class="token-value">'Space Grotesk'</span></div>
+        <div class="token-row"><span class="token-name">--font-body</span><span class="token-value">'DM Sans'</span></div>
+        <h4 style="margin-top:12px">Display sizes</h4>
+        <div class="token-row"><span class="token-name">hero</span><span class="token-value">clamp(44px,6vw,72px)</span></div>
+        <div class="token-row"><span class="token-name">heading</span><span class="token-value">28–32px / 600</span></div>
+        <div class="token-row"><span class="token-name">subheading</span><span class="token-value">18–20px / 300</span></div>
+        <div class="token-row"><span class="token-name">body</span><span class="token-value">15px / 400</span></div>
+        <div class="token-row"><span class="token-name">label</span><span class="token-value">9–10px / 500 caps</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

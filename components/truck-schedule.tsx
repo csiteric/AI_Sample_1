@@ -1,5 +1,6 @@
 import { MapPin, Clock, Calendar } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { StaffDivider } from "@/components/staff-divider";
 
 type Event = {
   day: string;
@@ -71,76 +72,76 @@ const schedule: Event[] = [
 ];
 
 const neighborhoodColor: Record<string, { bg: string; text: string }> = {
-  "Capitol Hill":   { bg: "#D4E8CB", text: "#3D6B3A" },
-  Ballard:          { bg: "#F5EDE0", text: "#A8845A" },
-  Fremont:          { bg: "#D4E8CB", text: "#3D6B3A" },
-  "Columbia City":  { bg: "#E8E4DC", text: "#5A6B52" },
-  "South Lake Union":{ bg: "#F5EDE0", text: "#A8845A" },
-  "West Seattle":   { bg: "#D4E8CB", text: "#3D6B3A" },
+  "Capitol Hill":    { bg: "rgba(58,38,24,0.08)",  text: "#5C3A22" },
+  Ballard:           { bg: "rgba(184,109,40,0.12)", text: "#B86D28" },
+  Fremont:           { bg: "rgba(58,38,24,0.08)",  text: "#5C3A22" },
+  "Columbia City":   { bg: "rgba(107,84,64,0.10)", text: "#6B5440" },
+  "South Lake Union":{ bg: "rgba(184,109,40,0.12)", text: "#B86D28" },
+  "West Seattle":    { bg: "rgba(46,84,56,0.10)",  text: "#2E5438" },
 };
 
 export function TruckSchedule() {
   return (
     <section
       id="schedule"
-      className="bg-[#E8E4DC] py-20 px-6"
+      className="bg-[#E6D8C0] py-20 px-6"
       aria-labelledby="schedule-heading"
     >
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="mb-12">
+        <div className="mb-3">
           <p
-            className="text-[9px] tracking-[0.22em] uppercase text-[#A8845A] mb-3 border-b border-[#E8D9C0] pb-2 inline-block"
+            className="text-[9px] tracking-[0.22em] uppercase text-[#B86D28] mb-3 border-b border-[#E0CEBC] pb-2 inline-block font-medium"
             style={{ fontFamily: "var(--font-ui)" }}
           >
             Weekly Locations
           </p>
           <h2
             id="schedule-heading"
-            className="text-[clamp(32px,4vw,48px)] font-light text-[#2D4A2D] leading-[1.1]"
+            className="text-[clamp(30px,4vw,46px)] font-bold text-[#2A1A0E] leading-[1.05] tracking-[-0.02em]"
             style={{ fontFamily: "var(--font-display)" }}
           >
             Find Our{" "}
-            <em style={{ fontStyle: "italic", fontWeight: 600, color: "#A8845A" }}>
-              Truck
-            </em>
+            <span style={{ color: "#B86D28" }}>Truck</span>
           </h2>
           <p
-            className="mt-2 text-[17px] italic font-light text-[#5A8A50]"
-            style={{ fontFamily: "var(--font-display)" }}
+            className="mt-2 text-[15px] font-light text-[#6B5440]"
+            style={{ fontFamily: "var(--font-body)" }}
           >
             We're out in the neighborhood — come say hi
           </p>
         </div>
 
+        <StaffDivider />
+
         {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {schedule.map((ev) => {
             const colors = neighborhoodColor[ev.neighborhood] ?? {
-              bg: "#D4E8CB",
-              text: "#3D6B3A",
+              bg: "rgba(58,38,24,0.08)",
+              text: "#5C3A22",
             };
             return (
               <div
                 key={ev.name}
-                className={`rounded-[18px] bg-white border p-5 flex flex-col gap-3 shadow-[0_6px_24px_rgba(42,31,20,0.10)] transition-shadow hover:shadow-[0_12px_40px_rgba(42,31,20,0.15)] ${
+                className={`rounded-[14px] bg-[#FDFAF5] border p-5 flex flex-col gap-3 shadow-[0_4px_18px_rgba(42,26,14,0.08)] transition-shadow hover:shadow-[0_10px_32px_rgba(42,26,14,0.13)] ${
                   ev.highlight
-                    ? "border-[#3D6B3A] ring-1 ring-[#3D6B3A]/20"
-                    : "border-[#E8D9C0]"
+                    ? "border-[#B86D28] ring-1 ring-[#B86D28]/20"
+                    : "border-[#E0CEBC]"
                 }`}
               >
                 {/* Day + badge row */}
                 <div className="flex items-start justify-between gap-2">
                   <div>
                     <p
-                      className="text-[13px] font-medium text-[#2D4A2D] leading-none"
+                      className="text-[12px] font-medium text-[#2A1A0E] leading-none"
                       style={{ fontFamily: "var(--font-ui)" }}
                     >
                       {ev.day}
                     </p>
                     {ev.recurring && (
                       <p
-                        className="text-[10px] text-[#8DB87A] mt-0.5"
+                        className="text-[10px] text-[#B86D28] mt-0.5"
                         style={{ fontFamily: "var(--font-ui)" }}
                       >
                         Every week
@@ -161,7 +162,7 @@ export function TruckSchedule() {
 
                 {/* Event name */}
                 <h3
-                  className="text-[18px] font-semibold text-[#2D4A2D] leading-[1.2]"
+                  className="text-[16px] font-semibold text-[#2A1A0E] leading-[1.2] tracking-[-0.01em]"
                   style={{ fontFamily: "var(--font-display)" }}
                 >
                   {ev.name}
@@ -169,30 +170,21 @@ export function TruckSchedule() {
 
                 {/* Details */}
                 <div className="flex flex-col gap-1.5 mt-auto">
-                  <div className="flex items-center gap-2 text-[#5A6B52]">
-                    <MapPin size={12} strokeWidth={1.5} />
-                    <span
-                      className="text-[11px]"
-                      style={{ fontFamily: "var(--font-ui)" }}
-                    >
+                  <div className="flex items-center gap-2 text-[#6B5440]">
+                    <MapPin size={11} strokeWidth={1.5} />
+                    <span className="text-[11px]" style={{ fontFamily: "var(--font-ui)" }}>
                       {ev.address}
                     </span>
                   </div>
-                  <div className="flex items-center gap-2 text-[#5A6B52]">
-                    <Clock size={12} strokeWidth={1.5} />
-                    <span
-                      className="text-[11px]"
-                      style={{ fontFamily: "var(--font-ui)" }}
-                    >
+                  <div className="flex items-center gap-2 text-[#6B5440]">
+                    <Clock size={11} strokeWidth={1.5} />
+                    <span className="text-[11px]" style={{ fontFamily: "var(--font-ui)" }}>
                       {ev.hours}
                     </span>
                   </div>
-                  <div className="flex items-center gap-2 text-[#5A6B52]">
-                    <Calendar size={12} strokeWidth={1.5} />
-                    <span
-                      className="text-[11px]"
-                      style={{ fontFamily: "var(--font-ui)" }}
-                    >
+                  <div className="flex items-center gap-2 text-[#6B5440]">
+                    <Calendar size={11} strokeWidth={1.5} />
+                    <span className="text-[11px]" style={{ fontFamily: "var(--font-ui)" }}>
                       {ev.date}
                     </span>
                   </div>
@@ -200,7 +192,7 @@ export function TruckSchedule() {
 
                 {ev.highlight && (
                   <div
-                    className="text-[9px] tracking-[0.12em] uppercase text-[#3D6B3A] font-medium mt-1"
+                    className="text-[9px] tracking-[0.12em] uppercase text-[#B86D28] font-medium mt-1"
                     style={{ fontFamily: "var(--font-ui)" }}
                   >
                     ★ This week's featured stop
@@ -211,40 +203,32 @@ export function TruckSchedule() {
           })}
         </div>
 
-        {/* Footer note */}
-        <div className="mt-10 rounded-[14px] bg-[#2D4A2D] text-white px-6 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        {/* CTA bar */}
+        <div className="mt-10 rounded-[14px] bg-[#3A2618] text-[#FAF5EC] px-6 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <p
-              className="text-[10px] tracking-[0.2em] uppercase text-[#8DB87A] mb-1"
+              className="text-[9px] tracking-[0.2em] uppercase text-[#D4922A] mb-1 font-medium"
               style={{ fontFamily: "var(--font-ui)" }}
             >
               Special Events
             </p>
             <p
-              className="text-[18px] font-light"
+              className="text-[17px] font-bold tracking-[-0.01em]"
               style={{ fontFamily: "var(--font-display)" }}
             >
               Catering &amp;{" "}
-              <em
-                style={{
-                  fontStyle: "italic",
-                  fontWeight: 600,
-                  color: "#C9A87A",
-                }}
-              >
-                Private Events
-              </em>
+              <span style={{ color: "#D4922A" }}>Private Events</span>
             </p>
             <p
-              className="text-[12px] text-[#8DB87A] mt-1"
-              style={{ fontFamily: "var(--font-ui)" }}
+              className="text-[12px] text-[#C4A880] mt-1 font-light"
+              style={{ fontFamily: "var(--font-body)" }}
             >
-              Festivals, weddings, corporate pop-ups — we bring the jungle to you.
+              Festivals, weddings, corporate pop-ups — we bring the good stuff to you.
             </p>
           </div>
           <a
             href="#social"
-            className="shrink-0 px-5 py-2.5 rounded-full bg-[#C9A87A] text-[#2D4A2D] text-[11px] font-medium tracking-[0.1em] uppercase hover:bg-[#D4A84B] transition-colors"
+            className="shrink-0 px-5 py-2.5 rounded-full bg-[#D4922A] text-[#2A1A0E] text-[10px] font-medium tracking-[0.1em] uppercase hover:bg-[#B86D28] hover:text-white transition-colors"
             style={{ fontFamily: "var(--font-ui)" }}
           >
             Get in Touch

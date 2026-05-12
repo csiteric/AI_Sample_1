@@ -2,37 +2,35 @@ import { Badge } from "@/components/ui/badge";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-[#F5EFE3] border-b border-[#E8D9C0]">
-      {/* Background gradient — right side botanical wash */}
+    <section className="relative overflow-hidden bg-[#FDFAF5] border-b border-[#E0CEBC]">
+      {/* Right panel — gradient fade to dark, like the brand board */}
       <div
-        className="absolute inset-y-0 right-0 w-1/2 pointer-events-none"
+        className="absolute inset-y-0 right-0 w-[55%] pointer-events-none"
         style={{
-          background:
-            "linear-gradient(135deg, rgba(90,138,80,0.10) 0%, rgba(45,74,45,0.18) 100%)",
+          background: "linear-gradient(to left, #3A2618 38%, transparent 100%)",
         }}
       />
 
-      {/* Decorative leaf */}
+      {/* Musical note — visible on dark side */}
       <div
-        className="absolute top-[-20px] right-8 text-[160px] opacity-10 pointer-events-none select-none"
-        style={{ transform: "rotate(-12deg)", filter: "grayscale(0.2)" }}
+        className="absolute right-16 top-1/2 -translate-y-1/2 pointer-events-none select-none text-[160px] leading-none"
+        style={{
+          color: "#D4922A",
+          opacity: 0.38,
+          fontFamily: "var(--font-display)",
+          fontWeight: 700,
+          zIndex: 1,
+        }}
         aria-hidden
       >
-        🌿
-      </div>
-      <div
-        className="absolute bottom-[-10px] right-[22%] text-[80px] opacity-[0.07] pointer-events-none select-none"
-        style={{ transform: "rotate(20deg)" }}
-        aria-hidden
-      >
-        🌱
+        ♪
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 md:py-28 lg:py-32">
-        <div className="max-w-[56%] min-w-[300px]">
+        <div className="max-w-[52%] min-w-[300px]">
           {/* Eyebrow */}
           <p
-            className="text-[10px] tracking-[0.22em] uppercase text-[#5A8A50] mb-4"
+            className="text-[9px] tracking-[0.24em] uppercase text-[#B86D28] mb-5 font-medium"
             style={{ fontFamily: "var(--font-ui)" }}
           >
             Specialty Coffee · Seattle, WA
@@ -40,27 +38,20 @@ export function Hero() {
 
           {/* Headline */}
           <h1
-            className="text-[clamp(42px,6vw,72px)] font-light leading-[1.05] text-[#2D4A2D] tracking-[-0.01em]"
+            className="text-[clamp(40px,5.5vw,68px)] font-bold leading-[1.02] text-[#2A1A0E] tracking-[-0.03em]"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            Where every cup
-            <br />
-            feels like{" "}
-            <em
-              className="not-italic"
-              style={{ fontStyle: "italic", fontWeight: 600, color: "#A8845A" }}
-            >
-              home.
-            </em>
+            Good light,{" "}
+            <span style={{ color: "#B86D28" }}>good coffee.</span>
           </h1>
 
           {/* Sub copy */}
           <p
-            className="mt-5 text-[17px] leading-[1.65] text-[#4A6B42] max-w-[420px]"
+            className="mt-5 text-[16px] leading-[1.7] text-[#6B5440] max-w-[400px] font-light"
             style={{ fontFamily: "var(--font-body)" }}
           >
-            Freshly roasted, thoughtfully made. We bring the warmth of our
-            botanical shop to farmers markets and events across Seattle.
+            A place to work, drift, or just sit with a warm cup. We set up at
+            markets and events around Seattle every week.
           </p>
 
           {/* Tags */}
@@ -69,8 +60,12 @@ export function Hero() {
               (tag) => (
                 <Badge
                   key={tag}
-                  className="rounded-full px-3 py-1 text-[9px] tracking-[0.1em] uppercase font-medium bg-[#D4E8CB] text-[#3D6B3A] border-none hover:bg-[#D4E8CB]"
-                  style={{ fontFamily: "var(--font-ui)" }}
+                  className="rounded-full px-3 py-1 text-[8px] tracking-[0.1em] uppercase font-medium border-none hover:opacity-90"
+                  style={{
+                    backgroundColor: "#3A2618",
+                    color: "#D4C4A8",
+                    fontFamily: "var(--font-ui)",
+                  }}
                 >
                   {tag}
                 </Badge>
@@ -82,14 +77,14 @@ export function Hero() {
           <div className="flex flex-wrap gap-3 mt-8">
             <a
               href="#schedule"
-              className="inline-flex items-center px-7 py-3 rounded-full bg-[#3D6B3A] text-white text-[12px] font-medium tracking-[0.1em] uppercase hover:bg-[#2D4A2D] transition-colors shadow-[0_4px_20px_rgba(45,74,45,0.22)]"
+              className="inline-flex items-center px-7 py-3 rounded-full bg-[#3A2618] text-[#FAF5EC] text-[11px] font-medium tracking-[0.1em] uppercase hover:bg-[#4A3020] transition-colors shadow-[0_4px_18px_rgba(58,38,24,0.22)]"
               style={{ fontFamily: "var(--font-ui)" }}
             >
               Find Our Truck
             </a>
             <a
               href="#menu"
-              className="inline-flex items-center px-7 py-3 rounded-full border border-[#E8D9C0] text-[#2A1F14] text-[12px] font-medium tracking-[0.1em] uppercase hover:border-[#A8845A] hover:text-[#A8845A] transition-colors"
+              className="inline-flex items-center px-7 py-3 rounded-full border border-[#E0CEBC] text-[#2A1A0E] text-[11px] font-medium tracking-[0.1em] uppercase hover:border-[#B86D28] hover:text-[#B86D28] transition-colors"
               style={{ fontFamily: "var(--font-ui)" }}
             >
               View Menu
@@ -97,9 +92,6 @@ export function Hero() {
           </div>
         </div>
       </div>
-
-      {/* Bottom divider wave */}
-      <div className="h-4 bg-[#FAF6EF]" />
     </section>
   );
 }

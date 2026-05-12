@@ -1,10 +1,11 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { StaffDivider } from "@/components/staff-divider";
 
 const drinks = [
   {
     emoji: "☕",
-    band: "linear-gradient(135deg, #D4E8CB, #F5EFE3)",
+    band: "linear-gradient(135deg, #E6D8C0, #F0E6D3)",
     tag: "Espresso · Milk",
     name: "Oat Flat White",
     desc: "Double ristretto, steamed oat milk, velvety microfoam",
@@ -13,25 +14,25 @@ const drinks = [
   },
   {
     emoji: "🌿",
-    band: "linear-gradient(135deg, #D4E8CB, #8DB87A)",
+    band: "linear-gradient(135deg, #1E3A28, #2E5438)",
     tag: "Seasonal · Cold",
-    name: "Jungle Cold Brew",
-    desc: "18-hr cold brew, cardamom, coconut milk, served over ice",
+    name: "Dark Canopy Cold Brew",
+    desc: "18-hr cold brew, cardamom, coconut milk, over ice",
     price: "$6.50",
     badge: "Fan Favorite",
   },
   {
     emoji: "🍯",
-    band: "linear-gradient(135deg, #F5EDE0, #C9A87A)",
+    band: "linear-gradient(135deg, #B86D28, #D4922A)",
     tag: "Signature · Hot",
-    name: "Honey Wood Latte",
+    name: "Ember Honey Latte",
     desc: "Espresso, local Pacific Northwest honey, steamed whole milk",
     price: "$6.00",
     badge: "Signature",
   },
   {
     emoji: "🫧",
-    band: "linear-gradient(135deg, #E8E4DC, #D4E8CB)",
+    band: "linear-gradient(135deg, #E6D8C0, #4A7558)",
     tag: "Matcha · Iced",
     name: "Forest Matcha",
     desc: "Ceremonial matcha, oat milk, light honey, served iced",
@@ -44,78 +45,82 @@ export function MenuPreview() {
   return (
     <section
       id="menu"
-      className="bg-[#FAF6EF] py-20 px-6"
+      className="bg-[#F0E6D3] py-20 px-6"
       aria-labelledby="menu-heading"
     >
       <div className="max-w-6xl mx-auto">
         {/* Section header */}
-        <div className="mb-12">
+        <div className="mb-3">
           <p
-            className="text-[9px] tracking-[0.22em] uppercase text-[#A8845A] mb-3 border-b border-[#E8D9C0] pb-2 inline-block"
+            className="text-[9px] tracking-[0.22em] uppercase text-[#B86D28] mb-3 border-b border-[#E0CEBC] pb-2 inline-block font-medium"
             style={{ fontFamily: "var(--font-ui)" }}
           >
             What We're Pouring
           </p>
           <h2
             id="menu-heading"
-            className="text-[clamp(32px,4vw,48px)] font-light text-[#2D4A2D] leading-[1.1]"
+            className="text-[clamp(30px,4vw,46px)] font-bold text-[#2A1A0E] leading-[1.05] tracking-[-0.02em]"
             style={{ fontFamily: "var(--font-display)" }}
           >
             Our{" "}
-            <em style={{ fontStyle: "italic", fontWeight: 600, color: "#A8845A" }}>
-              Menu
-            </em>
+            <span style={{ color: "#B86D28" }}>Menu</span>
           </h2>
           <p
-            className="mt-2 text-[17px] italic font-light text-[#5A8A50]"
-            style={{ fontFamily: "var(--font-display)" }}
+            className="mt-2 text-[15px] font-light text-[#6B5440]"
+            style={{ fontFamily: "var(--font-body)" }}
           >
             Seasonal drinks &amp; single-origin espresso
           </p>
         </div>
 
-        {/* Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+        <StaffDivider />
+
+        <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-5">
           {drinks.map((d) => (
             <Card
               key={d.name}
-              className="border border-[#E8E4DC] shadow-[0_6px_24px_rgba(42,31,20,0.10)] rounded-[18px] overflow-hidden bg-white"
+              className="border border-[#E0CEBC] shadow-[0_4px_18px_rgba(42,26,14,0.09)] rounded-[14px] overflow-hidden bg-[#FDFAF5]"
             >
               {/* Image band */}
               <div
-                className="h-[76px] flex items-center justify-center text-[32px]"
+                className="h-[72px] flex items-center justify-center text-[30px]"
                 style={{ background: d.band }}
               >
                 {d.emoji}
               </div>
               <CardContent className="p-4">
                 <p
-                  className="text-[9px] tracking-[0.1em] uppercase text-[#5A8A50] mb-1"
+                  className="text-[8px] tracking-[0.12em] uppercase text-[#B86D28] mb-1 font-medium"
                   style={{ fontFamily: "var(--font-ui)" }}
                 >
                   {d.tag}
                 </p>
                 <h3
-                  className="text-[17px] font-semibold text-[#2D4A2D] leading-[1.2]"
+                  className="text-[15px] font-semibold text-[#2A1A0E] leading-[1.2] tracking-[-0.01em]"
                   style={{ fontFamily: "var(--font-display)" }}
                 >
                   {d.name}
                 </h3>
                 <p
-                  className="text-[11px] text-[#999] mt-1 leading-[1.5]"
-                  style={{ fontFamily: "var(--font-ui)" }}
+                  className="text-[11px] text-[#6B5440] mt-1 leading-[1.5] font-light"
+                  style={{ fontFamily: "var(--font-body)" }}
                 >
                   {d.desc}
                 </p>
                 <div className="flex justify-between items-center mt-3">
                   <span
-                    className="text-[20px] italic text-[#A8845A]"
+                    className="text-[18px] font-light text-[#B86D28] tracking-[-0.01em]"
                     style={{ fontFamily: "var(--font-display)" }}
                   >
                     {d.price}
                   </span>
-                  <Badge className="rounded-full px-2 py-0.5 text-[8px] tracking-[0.08em] uppercase font-medium bg-[#D4E8CB] text-[#3D6B3A] border-none hover:bg-[#D4E8CB]"
-                    style={{ fontFamily: "var(--font-ui)" }}
+                  <Badge
+                    className="rounded-full px-2 py-0.5 text-[8px] tracking-[0.08em] uppercase font-medium border-none"
+                    style={{
+                      backgroundColor: "#3A2618",
+                      color: "#D4C4A8",
+                      fontFamily: "var(--font-ui)",
+                    }}
                   >
                     {d.badge}
                   </Badge>
@@ -126,10 +131,10 @@ export function MenuPreview() {
         </div>
 
         <p
-          className="text-center mt-8 text-[11px] tracking-[0.12em] uppercase text-[#8DB87A]"
+          className="text-center mt-8 text-[10px] tracking-[0.14em] uppercase text-[#6B5440]"
           style={{ fontFamily: "var(--font-ui)" }}
         >
-          Full menu available at the truck · Seasonal offerings rotate weekly
+          Full menu at the truck · Seasonal offerings rotate weekly
         </p>
       </div>
     </section>
