@@ -23,13 +23,12 @@ const crimsonPro = Crimson_Pro({
 });
 
 export const metadata: Metadata = {
-  title: "Urban Roots Coffee — Seattle",
-  description:
-    "Specialty coffee truck rooted in Seattle. Find us at farmers markets and events across the city. Where the jungle meets your cup.",
+  title: "Dialed In — Espresso Diagnostic Assistant",
+  description: "AI-powered espresso troubleshooting. Describe your shot, get a diagnosis.",
   openGraph: {
-    title: "Urban Roots Coffee",
-    description: "Where the jungle meets your cup.",
-    siteName: "Urban Roots Coffee",
+    title: "Dialed In",
+    description: "AI-powered espresso troubleshooting.",
+    siteName: "Dialed In",
   },
 };
 
@@ -43,7 +42,7 @@ export default function RootLayout({
       lang="en"
       className={`${cormorant.variable} ${dmSans.variable} ${crimsonPro.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="h-full overflow-hidden">{children}</body>
     </html>
   );
 }
